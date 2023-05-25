@@ -1,0 +1,65 @@
+function turnsOnRoad(x, y) {
+  let previousCoo = {
+    x: 0,
+    y: 0,
+  };
+  let turns = 0;
+  let increment = 1;
+  let cooPositivity = 1;
+  let xPositivity = x >= 0;
+  let yPositivity = y >= 0;
+  let found = false;
+  let higherCooValue;
+  let higherCoo;
+  Math.abs(x) > Math.abs(y)
+    ? ((higherCoo = "x"), (higherCooValue = x))
+    : ((higherCoo = "y"), (higherCooValue = y));
+  while (!found) {
+    turns ? turns++ : null;
+    if (previousCoo[higherCoo] !== higherCooValue) {
+      previousCoo.x += increment * cooPositivity;
+      previousCoo.y += increment * cooPositivity;
+      turns++;
+    }
+
+    if (previousCoo[higherCoo] === higherCooValue) {
+      found = true;
+    }
+
+    if (found) {
+      let xDiff = x - previousCoo.x;
+      let yDiff = y - previousCoo.y;
+      //when higher y 
+      if (!yPositivity && xDiff > 0) {
+        turns++;
+      } else if (!yPositivity && xDiff < 0) {
+        if (xDiff - increment === 0) {
+          turns--;
+        }
+      } else if (yPositivity && xDiff > 0) {
+        if (xDiff + increment === 0) {
+          turns--;
+        }
+      } else if (yPositivity && xDiff < 0) {
+        turns++;
+      }
+
+      // when higher x
+      if(!xPositivity && yDiff < 0){
+        turns++
+      } else if (!xPositivity && yDiff > 0){
+         if (yDiff - increment === 0) {           
+           turns--;
+         }
+      } else if (xPositivity && yDiff <0){
+         if (yDiff + increment === 0) {
+           turns--;
+         }
+      } else if (xPositivity && yDiff >0){
+        turns++
+      }
+    }
+    cooPositivity *= -1;
+    increment++;
+  }
+  return turns;
