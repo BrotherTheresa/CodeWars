@@ -1,0 +1,25 @@
+/*2520 ➞ 72
+
+# The first and last digits are 2 and 0.
+# 2 and 0 form 20.
+# The second digit is 5 and the second to last digit is 2.
+# 5 and 2 form 52.
+
+# 20 + 52 = 72*/
+
+function closingInSum(n) {
+  const splitNumb = String(n).split('');
+  const arrOfNumb = [];
+
+  while (splitNumb.length > 0) {
+    const firstNumb = splitNumb.shift();
+    const lastNumb = splitNumb.pop();
+    if (lastNumb) {
+      arrOfNumb.push(firstNumb + lastNumb);
+    } else {
+      arrOfNumb.push(firstNumb);
+    }
+  }
+
+  return arrOfNumb.reduce((acc, item) => acc + Number(item), 0);
+}
